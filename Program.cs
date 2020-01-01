@@ -8,7 +8,8 @@ namespace HashTable
         {
             var table = new HashTable<int, int>();
             table.Insert(1, 666);
-            Console.WriteLine(table);
+            table.Insert(11, 667);
+            Console.WriteLine(table.Find(1));
         }
     }
 }

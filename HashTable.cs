@@ -25,5 +25,26 @@ namespace HashTable
             var pair = new Tuple<TKey, TValue>(key, value);
             Buckets[index].Add(pair);
         }
+
+        public TValue Find(TKey key)
+        {
+            int hash = key.GetHashCode();
+            int index = hash % Buckets.Length;
+
+            if (Buckets[index] == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            foreach (var pair in Buckets[index])
+            {
+                if (pair.Item1.Equals(key))
+                {
+                    return pair.Item2;
+                }
+            }
+            
+            throw new KeyNotFoundException();
+        }
     }
 }
