@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace HashTable
 {
-    public class HashTable<TKey, TValue>
+    public class ChainedHashTable<TKey, TValue>
     {
         private List<Tuple<TKey, TValue>>[] Buckets { get; set; }
 
-        public HashTable(int size = 10)
+        public ChainedHashTable(int size = 10)
         {
             Buckets = new List<Tuple<TKey, TValue>>[size];
         }

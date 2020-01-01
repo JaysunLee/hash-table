@@ -6,7 +6,7 @@ namespace HashTable
     {
         static void Main(string[] args)
         {
-            var table = new HashTable<int, int>();
+            var table = new ChainedHashTable<int, int>();
             table.Insert(1, 666);
             table.Insert(11, 667);
             table.Delete(11);
