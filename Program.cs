@@ -9,6 +9,7 @@ namespace HashTable
             var table = new HashTable<int, int>();
             table.Insert(1, 666);
             table.Insert(11, 667);
+            table.Delete(11);
             Console.WriteLine(table.Find(1));
         }
     }

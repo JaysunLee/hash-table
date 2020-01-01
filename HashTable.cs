@@ -43,8 +43,40 @@ namespace HashTable
                     return pair.Item2;
                 }
             }
-            
+
             throw new KeyNotFoundException();
+        }
+
+        public void Delete(TKey key)
+        {
+            int hash = key.GetHashCode();
+            int index = hash % Buckets.Length;
+
+            if (Buckets[index] == null)
+            {
+                return;
+            }
+            
+            Tuple<TKey, TValue> pairToRemove = null;
+
+            foreach (var pair in Buckets[index])
+            {
+                if (pair.Item1.Equals(key))
+                {
+                    pairToRemove = pair;
+                    break;
+                }
+            }
+
+            if (pairToRemove != null)
+            {
+                Buckets[index].Remove(pairToRemove);
+
+                if (Buckets[index].Count == 0)
+                {
+                    Buckets[index] = null;
+                }
+            }
         }
     }
 }
