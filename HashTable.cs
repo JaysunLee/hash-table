@@ -12,10 +12,16 @@ namespace HashTable
             Buckets = new List<Tuple<TKey, TValue>>[size];
         }
 
-        public void Insert(TKey key, TValue value)
+        private int F(TKey key)
         {
             int hash = key.GetHashCode();
             int index = hash % Buckets.Length;
+            return index;
+        }
+
+        public void Insert(TKey key, TValue value)
+        {
+            int index = F(key);
 
             if (Buckets[index] == null)
             {
@@ -28,8 +34,7 @@ namespace HashTable
 
         public TValue Find(TKey key)
         {
-            int hash = key.GetHashCode();
-            int index = hash % Buckets.Length;
+            int index = F(key);
 
             if (Buckets[index] == null)
             {
@@ -49,8 +54,7 @@ namespace HashTable
 
         public void Delete(TKey key)
         {
-            int hash = key.GetHashCode();
-            int index = hash % Buckets.Length;
+            int index = F(key);
 
             if (Buckets[index] == null)
             {
