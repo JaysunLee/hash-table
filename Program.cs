@@ -6,7 +6,7 @@ namespace HashTable
     {
         static void Main(string[] args)
         {
-            var table = new ProbingHashTable<int, int>();
+            var table = new LinkedHashTable<int, int>();
             table.Insert(1, 666);
             table.Insert(11, 667);
             table.Delete(11);
