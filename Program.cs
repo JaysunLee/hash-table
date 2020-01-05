@@ -10,7 +10,12 @@ namespace HashTable
             table.Insert(1, 666);
             table.Insert(11, 667);
             table.Delete(11);
-            Console.WriteLine(table.Find(1));
+            table.Insert(4, 66);
+            table.Insert(2, 88);
+            Console.WriteLine(table.Find(4));
+
+            table.PrintList();
+            table.PrintListBackwards();
         }
     }
 }

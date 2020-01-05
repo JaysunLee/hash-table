@@ -6,10 +6,13 @@ namespace HashTable
     public class LinkedHashTable<TKey, TValue>
     {
         private List<Node<TKey, TValue>>[] Buckets { get; set; }
+        private Node<TKey, TValue> Head { get; set; }
+        private Node<TKey, TValue> Tail { get; set; }
 
         public LinkedHashTable(int size = 10)
         {
             Buckets = new List<Node<TKey, TValue>>[size];
+            Head = Tail = null;
         }
 
         private int F(TKey key)
@@ -30,6 +33,18 @@ namespace HashTable
 
             var node = new Node<TKey, TValue>(key, value);
             Buckets[index].Add(node);
+
+            // List maintainence
+            if (Head == null && Tail == null)
+            {
+                Head = Tail = node;
+            }
+            else
+            {
+                node.Previous = Tail;
+                Tail.Next = node;
+                Tail = node;
+            }
         }
 
         public TValue Find(TKey key)
@@ -80,6 +95,52 @@ namespace HashTable
                 {
                     Buckets[index] = null;
                 }
+            }
+            
+            // List maintainence
+            if (nodeToRemove == Head && Head == Tail)
+            {
+                Head = Tail = null;
+            }
+            else if (nodeToRemove == Head)
+            {
+                Head = Head.Next;
+                Head.Previous = null;
+            }
+            else if (nodeToRemove == Tail)
+            {
+                Tail = Tail.Previous;
+                Tail.Next = null;
+            }
+            else
+            {
+                var before = nodeToRemove.Previous;
+                var after = nodeToRemove.Next;
+
+                before.Next = after;
+                after.Previous = before;
+            }
+        }
+
+        public void PrintList()
+        {
+            var cursor = Head;
+
+            while (cursor != null)
+            {
+                Console.WriteLine(cursor.Value);
+                cursor = cursor.Next;
+            }
+        }
+
+        public void PrintListBackwards()
+        {
+            var cursor = Tail;
+
+            while (cursor != null)
+            {
+                Console.WriteLine(cursor.Value);
+                cursor = cursor.Previous;
             }
         }
     }
